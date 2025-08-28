@@ -1,9 +1,15 @@
 package sia;
 
+import java.io.IOException;
+
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws NumberFormatException, IOException {
 		System.out.println("Hola");
+		Sistema sistema = new Sistema() ;
+		Menu menu = new Menu() ;
+		menu.mostrarMenu();
 	}
+	
 
 }

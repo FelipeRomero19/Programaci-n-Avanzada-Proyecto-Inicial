@@ -6,14 +6,16 @@ public class Proyecto {
 	private String idProyecto;
 	private String nombre; // nombre del proyecto
 	private String descripcion; // breve descripcion
+	private String subRamaCarrera ;
 	private double fondos; 
 	private ArrayList<Publicacion> publicaciones;
-	private ArrayList<Investigador> investigadores;
+	private ArrayList<Investigador> investigadores; 
 
-	public Proyecto(String idProyecto, String nombre, String descripcion, double fondos) {
+	public Proyecto(String idProyecto, String nombre, String descripcion, double fondos, String subRamaCarrera) {
 		this.idProyecto = idProyecto;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
+		this.subRamaCarrera = subRamaCarrera ;
 		this.fondos = fondos;
 		this.publicaciones = new ArrayList<>();
 		this.investigadores = new ArrayList<>();
@@ -40,28 +42,62 @@ public class Proyecto {
 		return idProyecto;
 	}
 	public void setIdProyecto(String idProyecto) {
-		this.idProyecto = idProyecto;
+		if(idProyecto != null) {
+			this.idProyecto = idProyecto;
+		}
+		else {
+			this.idProyecto = "";
+		}
 	}
 	
 	public String getNombre() {
 		return nombre;
 	}
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		if(nombre != null) {
+			this.nombre = nombre;
+		}
+		else {
+			this.nombre = "";
+		}
 	}
 	
 	public String getDescripcion() {
 		return descripcion;
 	}
 	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+		if(descripcion != null) {
+			this.descripcion = descripcion;
+		}
+		else {
+			this.descripcion = "";
+		}
 	}
 	
 	public double getFondos() {
 		return fondos;
 	}
 	public void setFondos(double fondos) {
-		this.fondos = fondos;
+		if(fondos != 0) {
+			this.fondos = fondos;
+		}
+		else {
+			this.fondos = 0;
+		}
+	}
+
+	public String getSubRamaCarrera() {
+		return subRamaCarrera;
+	}
+
+	public void setSubRamaCarrera(String subRamaCarrera) {
+		if(subRamaCarrera != null) {
+			this.subRamaCarrera = subRamaCarrera;
+		}
+		else {
+			this.subRamaCarrera = "";
+		}
+		
 	}
 
 }
