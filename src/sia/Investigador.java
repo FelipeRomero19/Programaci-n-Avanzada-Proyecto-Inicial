@@ -4,7 +4,7 @@ public class Investigador {
 	private String idInvestigador;
 	private String nombre; // nombre del investigador
 	private String especialidad;// ej: especializado en IA o en Energia solar.
-	private String carrera ;
+	private String carrera;
 
 	public Investigador(String idInvestigador, String nombre, String especialidad, String carrera) {
 		this.idInvestigador = idInvestigador;

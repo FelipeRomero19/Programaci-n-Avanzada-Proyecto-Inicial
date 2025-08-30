@@ -47,8 +47,14 @@ public class Publicacion {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	public void agregarAutor(Investigador autor) {
-		autores.add(autor);
+	public boolean agregarAutor(Investigador autor) {
+		if(autor == null) return false;
+		if(this.autores.contains(autor)) {
+			System.out.println("El autor ya fue agregado a esta publicación");
+			return false;
+		}
+		this.autores.add(autor);
+		return true;
 	}
 	public ArrayList<Investigador> getAutores() {
 		return autores;

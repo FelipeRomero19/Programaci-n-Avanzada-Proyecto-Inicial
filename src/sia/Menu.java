@@ -1,59 +1,189 @@
 package sia;
 import java.io.*;
+import java.util.HashMap;
 
 public class Menu {
-	private int opcion;
-	private Sistema sistema ;
-	private BufferedReader bf ;
+	private Sistema sistema;
+	private BufferedReader bf;
 	
 	public Menu(Sistema sistema) {
-		this.sistema = sistema ;	
+		this.sistema = sistema;
+		this.bf = new BufferedReader(new InputStreamReader(System.in));
 	}
 	
-	public int getOpcion() {
-		return opcion;
-	}
-	
-	public void setOpcion(int opcion) {
-		if(opcion != 0) {
-			this.opcion = 0 ;
-		}
-		else {
-			this.opcion = opcion;
-		}
-	}
-	
-	public void mostrarMenu() throws NumberFormatException, IOException {
-		bf = new BufferedReader(new InputStreamReader(System.in));
+	public void mostrarMenu() throws IOException {
 		int opcion;
 
 		do {
-		    System.out.println("1. Gestión de Investigadores");
-		    System.out.println("2. Gestión de Proyectos");
-		    System.out.println("3. Gestión de Publicaciones");
-		    System.out.println("4. Salir");
+			System.out.println("\n**** SISTEMA DE PROYECTOS ****");
+		    System.out.println("1. Agregar Proyecto");
+		    System.out.println("2. Agregar publicación a un proyecto");
+		    System.out.println("3. Agregar investigador a un proyecto");
+		    System.out.println("4. Listar Proyectos");
+		    System.out.println("5. Salir.......");
 		    System.out.print("Elija una opción: ");
-		    opcion = Integer.parseInt(bf.readLine()) ;
+		    
+		    opcion = Integer.parseInt(bf.readLine());
 
 		    switch(opcion) {
-		        case 1:
-		        	System.out.println("Ingresaste opcion 1");
-		            break;
-		        case 2:
-		        	System.out.println("Ingresaste opcion 2");
-		            break;
-		        case 3:
-		        	System.out.println("Ingresaste opcion 3");
-		            break;
-		        case 4:
-		            System.out.println("Saliendo...");
-		            break;
-		        default:
-		            System.out.println("Opción inválida.");
+		    case 1 -> agregarProyecto();
+		    case 2 -> agregarPublicacion();
+		    case 3 -> agregarInvestigador();
+		    case 4 -> listarProyectos();
+		    case 5 -> System.out.println("Saliendo......");
+		    default -> System.out.println("Opción Inválida");
 		    }
-		} while(opcion != 4);
+		} while(opcion != 5);
+	}
+	
+	private void agregarProyecto() throws IOException {
+		System.out.println("\n**** AGREGAR PROYECTO ****");
+		System.out.print("ID del proyecto: ");
+		String id = bf.readLine();
+		System.out.print("Nombre: ");
+		String nombre = bf.readLine();
+		System.out.print("Descripción: ");
+		String descripcion = bf.readLine();
+		System.out.print("Subrama de la carrera: ");
+		String subRama = bf.readLine();
+		System.out.print("Fondos: ");
+		double fondos = Double.parseDouble(bf.readLine());
+		
+		boolean agregado = sistema.agregarProyecto(id, nombre, descripcion, fondos, subRama);
+		if(agregado) System.out.println("Proyecto agregado correctamente");
+		else System.out.println("No se pudo agregar el proyecto");
+		
 	}
 
+	private void agregarPublicacion() throws IOException {
+		System.out.println("\n**** AGREGAR PUBLICACIÓN ****");
+		System.out.print("ID del proyecto: ");
+		String idProyecto = bf.readLine();
+		
+		Proyecto proyecto = sistema.buscarProyecto(idProyecto);
+		if(proyecto == null) {
+			System.out.println("No existe un proyecto con ese ID.");
+			return;
+		}
+		
+		System.out.print("ID de la publicación: ");
+		String idPub = bf.readLine();
+		System.out.print("Título: ");
+		String titulo = bf.readLine();
+		System.out.print("Año: ");
+		int año = Integer.parseInt(bf.readLine());
+		System.out.print("Tipo (artículo, tesis, etc): ");
+		String tipo = bf.readLine();
+		
+		Publicacion pub = new Publicacion(idPub, titulo, año, tipo);
+		
+		if(proyecto.getInvestigadores().isEmpty()) {
+			System.out.println("No puedes agregar publicaciones: este proyecto no tiene investigadores");
+			return;
+		}
+		
+		System.out.println("Investigadores disponibles en el proyecto");
+		for(Investigador inv : proyecto.getInvestigadores()) {
+			System.out.println(" - ID: " + inv.getIdInvestigador() + " | Nombre: " + inv.getNombre());
+		}
+		
+		while(true) {
+			System.out.print("Ingrese ID de un autor (o ´exit´ para terminar): ");
+			String idAutor = bf.readLine();
+			if(idAutor.equals("exit")) break;
+			
+			Investigador autor = proyecto.buscarInvestigador(idAutor);
+			if(autor == null) {
+				System.out.println("Ese investigador no pertenece al proyecto");
+			}
+			else {
+				pub.agregarAutor(autor);
+				System.out.println("Autor agregado exitosamente: " + autor.getNombre());
+			}
+		}
+		
+		boolean agregado = sistema.agregarPublicacion(idProyecto, pub);
+		if(agregado) 
+			System.out.println("Publicación agregada correctamente con sus autores");
+		else 
+			System.out.println("No se pudo agregar la publicación");
+	}
 	
+	private void agregarInvestigador() throws IOException {
+		System.out.println("\n**** AGREGAR INVESTIGADOR ****");
+		System.out.print("ID del proyecto: ");
+		String idProyecto = bf.readLine();
+		if(sistema.buscarProyecto(idProyecto) == null) {
+			System.out.println("No existe un proyecto con ese ID");
+			return;
+		}
+		System.out.print("ID del investigador: ");
+		String idInv = bf.readLine();
+		System.out.print("Nombre: ");
+		String nombre = bf.readLine();
+		System.out.print("Especialidad: ");
+		String especialidad = bf.readLine();
+		System.out.print("Carrera: ");
+		String carrera = bf.readLine();
+		
+		boolean agregado = sistema.agregarInvestigador(idProyecto, idInv, nombre, especialidad, carrera);
+		if(agregado) System.out.println("Investigador agregado correctamente");
+		else System.out.println("No se pudo agregar al investigador");
+	}
+	
+	public void listarProyectos() {
+	    HashMap<String, Proyecto> proyectos = sistema.getProyectos();
+
+	    if (proyectos.isEmpty()) {
+	        System.out.println("No hay proyectos registrados.");
+	        return;
+	    }
+
+	    for (Proyecto proyecto : proyectos.values()) {
+	        System.out.println("*************************************");
+	        System.out.println("ID Proyecto: " + proyecto.getIdProyecto());
+	        System.out.println("Nombre: " + proyecto.getNombre());
+	        System.out.println("Descripción: " + proyecto.getDescripcion());
+	        System.out.println("SubRama: " + proyecto.getSubRamaCarrera());
+	        System.out.println("Fondos: $" + proyecto.getFondos());
+
+	        // Investigadores
+	        System.out.println("\nInvestigadores del Proyecto:");
+	        if (proyecto.getInvestigadores().isEmpty()) {
+	            System.out.println("   * Ningún investigador asignado.");
+	        } else {
+	            for (Investigador inv : proyecto.getInvestigadores()) {
+	                System.out.println("   - " + inv.getNombre() + " (" + inv.getEspecialidad() + ")");
+	            }
+	        }
+
+	        // Publicaciones
+	        System.out.println("\nPublicaciones del Proyecto:");
+	        if (proyecto.getPublicaciones().isEmpty()) {
+	            System.out.println("   * Ninguna publicación registrada.");
+	        } else {
+	            for (Publicacion pub : proyecto.getPublicaciones()) {
+	                System.out.println("   - Título: " + pub.getTitulo() + " (" + pub.getAño() + ")");
+	                System.out.println("     Tipo: " + pub.getTipo());
+
+	                // Mostrar autores de las publicaciones (investigadores del proyecto)
+	                System.out.println("     Autores:");
+	                if (pub.getAutores().isEmpty()) {
+	                    System.out.println("        * Sin autores asignados.");
+	                } else {
+	                    for (Investigador autor : pub.getAutores()) {
+	                        if (proyecto.getInvestigadores().contains(autor)) {
+	                            System.out.println("        - " + autor.getNombre());
+	                        } else {
+	                            System.out.println("        - " + autor.getNombre() + " (⚠ no pertenece al proyecto)");
+	                        }
+	                    }
+	                }
+	            }
+	        }
+	        System.out.println("*************************************\n");
+	    }
+	}
+
 
 }
