@@ -38,15 +38,15 @@ public class Menu {
 	
 	private void agregarProyecto() throws IOException {
 		System.out.println("\n**** AGREGAR PROYECTO ****");
-		System.out.print("ID del proyecto: ");
+		System.out.print("ID del proyecto(Ej: P-1919): ");
 		String id = bf.readLine();
 		System.out.print("Nombre: ");
 		String nombre = bf.readLine();
 		System.out.print("Descripción: ");
 		String descripcion = bf.readLine();
-		System.out.print("Subrama de la carrera: ");
+		System.out.print("Subrama de la carrera(Ej:Ciberseguridad): ");
 		String subRama = bf.readLine();
-		System.out.print("Fondos: ");
+		System.out.print("Fondos(ingresar valores númericos): ");
 		double fondos = Double.parseDouble(bf.readLine());
 		
 		boolean agregado = sistema.agregarProyecto(id, nombre, descripcion, fondos, subRama);
@@ -57,7 +57,7 @@ public class Menu {
 
 	private void agregarPublicacion() throws IOException {
 		System.out.println("\n**** AGREGAR PUBLICACIÓN ****");
-		System.out.print("ID del proyecto: ");
+		System.out.print("ID del proyecto(Ej: P-1912): ");
 		String idProyecto = bf.readLine();
 		
 		Proyecto proyecto = sistema.buscarProyecto(idProyecto);
@@ -66,7 +66,7 @@ public class Menu {
 			return;
 		}
 		
-		System.out.print("ID de la publicación: ");
+		System.out.print("ID de la publicación(Ej: PUB-0019): ");
 		String idPub = bf.readLine();
 		System.out.print("Título: ");
 		String titulo = bf.readLine();
@@ -119,7 +119,7 @@ public class Menu {
 		}
 		System.out.print("ID del investigador: ");
 		String idInv = bf.readLine();
-		System.out.print("Nombre: ");
+		System.out.print("Nombre y Apellido: ");
 		String nombre = bf.readLine();
 		System.out.print("Especialidad: ");
 		String especialidad = bf.readLine();

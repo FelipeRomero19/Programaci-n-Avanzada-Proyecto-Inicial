@@ -17,9 +17,9 @@ public class Sistema {
 	// metodo para inicializar datos de prueba -> privado: No queremos que se tenga acceso a este metodo
 	private void inicializarSistema() {
 		// Ejemplo 1
-		Proyecto p1 = new Proyecto("P001", "Sistema Solar Inteligente","Investigación en optimización de paneles solares" , 500000.0, "Energía Renovable");
-		Investigador i1 = new Investigador("I001", "Juan Pérez", "Paneles Solares", "Ingenieria Eléctrica");
-		Publicacion pub1 = new Publicacion("PUB001", "Modelado de paneles", 1991, "Artículo");
+		Proyecto p1 = new Proyecto("P-1001", "Sistema Solar Inteligente","Investigación en optimización de paneles solares" , 500000.0, "Energía Renovable");
+		Investigador i1 = new Investigador("I-2001", "Juan Pérez", "Paneles Solares", "Ingenieria Eléctrica");
+		Publicacion pub1 = new Publicacion("PUB-0019", "Modelado de paneles", 1991, "Artículo");
 		
 		p1.agregarInvestigador(i1);
 		pub1.agregarAutor(i1);
@@ -27,9 +27,9 @@ public class Sistema {
 		this.proyectos.put(p1.getIdProyecto(), p1);
 		
 		// Ejemplo 2
-		Proyecto p2 = new Proyecto("P002", "Clasificación con Deep Learning","Aplicación de redes neuronales con imágenes médicas" , 7500000.0, "Inteligencia Artificial");
-		Investigador i2 = new Investigador("I002", "María Gómez", "Deep Learning", "Ingenieria Informática");
-		Publicacion pub2 = new Publicacion("PUB002", "Redes convolucionales para diagnóstico", 2021, "Tesis");
+		Proyecto p2 = new Proyecto("P-3002", "Clasificación con Deep Learning","Aplicación de redes neuronales con imágenes médicas" , 7500000.0, "Inteligencia Artificial");
+		Investigador i2 = new Investigador("I-6002", "María Gómez", "Deep Learning", "Ingenieria Informática");
+		Publicacion pub2 = new Publicacion("PUB-3002", "Redes convolucionales para diagnóstico", 2021, "Tesis");
 		
 		p2.agregarInvestigador(i2);
 		pub2.agregarAutor(i2);
