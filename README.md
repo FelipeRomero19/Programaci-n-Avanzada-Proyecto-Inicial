@@ -11,7 +11,7 @@
 ### Usando NetBeans IDE 21
 
 1. **Abrir NetBeans IDE 21.**
-2. Selecciona **Team > Git > Clone ** insertar el link del repositorio.
+2. Selecciona **Team > Git > Clone** insertar el link del repositorio.
 3. Navega hasta la carpeta donde quieras clonar este repositorio.
 4. Haz clic en **Open Project**.
 5. Haz clic derecho sobre el proyecto y selecciona **Run**.
