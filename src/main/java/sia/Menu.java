@@ -26,11 +26,26 @@ public class Menu {
 		    opcion = Integer.parseInt(bf.readLine());
 
 		    switch(opcion) {
-		    case 1 : agregarProyecto();
-		    case 2 : agregarPublicacion();
-		    case 3 : agregarInvestigador();
-		    case 4 : listarProyectos();
-		    case 5 : System.out.println("Saliendo......");
+		    case 1 : {
+		    	agregarProyecto();
+		    	break;
+		    }
+		    case 2 : {
+		    	agregarPublicacion();
+		    	break;
+		    }
+		    case 3 : {
+		    	agregarInvestigador();
+		    	break;
+		    }
+		    case 4 : {
+		    	listarProyectos();
+		    	break;
+		    }
+		    case 5 :  {
+		    	System.out.println("Saliendo......");
+		    	break;
+		    }
 		    default : System.out.println("Opción Inválida");
 		    }
 		} while(opcion != 5);
