@@ -1,9 +1,5 @@
 # Programaci-n-Avanzada-Proyecto-Inicial
 # Proyecto Java
-
-Este repositorio contiene un proyecto desarrollado en Java que puede ser ejecutado tanto en **NetBeans IDE 21** como en **Eclipse**.  
-Es **requisito indispensable** utilizar **Oracle JDK 11** para compilar y ejecutar el proyecto correctamente.
-
 ## Requisitos previos
 
 - **Oracle JDK 11** instalado y configurado en el sistema  
