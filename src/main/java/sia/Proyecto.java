@@ -83,15 +83,17 @@ public class Proyecto {
 		}
 	}
 	
-	public ArrayList<Publicacion> getPublicaciones() {
-		return publicaciones;
+	
+	// Getters seguros
+	public List<Publicacion> getPublicaciones() {
+		return Collections.unmodifiableList(new ArrayList<>(this.publicaciones));
 	}
 	
-	public ArrayList<Investigador> getInvestigadores() {
-		return investigadores;
+	public List<Investigador> getInvestigadores() {
+		return Collections.unmodifiableList(new ArrayList<>(this.investigadores));
 	}
 	
-	// Metodos para agregar publicaciones
+	// Metodos de manipulacion de publicaciones
 	public boolean agregarPublicacion(Publicacion publicacion) {
 		if(publicacion == null) return false;
 		// evitar ids duplicados
@@ -110,10 +112,31 @@ public class Proyecto {
 		return agregarPublicacion(pub);
 	}
 	
-	//Metodos para agregar investigadores
+	public Publicacion buscarPublicacion(String idPublicacion) {
+		for(Publicacion p : this.publicaciones) {
+			if(p.getIdPublicacion().equals(idPublicacion)) return p;
+		}
+		return null;
+	}
+	
+	public boolean removerPublicacion(String idPublicacion) {
+		Publicacion p = buscarPublicacion(idPublicacion);
+		if(p == null) return false;
+		return this.publicaciones.remove(p);
+	}
+	
+	public boolean editarPublicacion(String idPublicacion, String nuevoTitulo, int nuevoAnio, String nuevoTipo) {
+        Publicacion p = buscarPublicacion(idPublicacion);
+        if (p == null) return false;
+        p.setTitulo(nuevoTitulo);
+        p.setAño(nuevoAnio);
+        p.setTipo(nuevoTipo);
+        return true;
+    }
+		
+	//Metodos de manipulacion de investigadores
 	public boolean agregarInvestigador(Investigador investigador) {
 		if(investigador == null) return false;
-		//evita duplicados
 		for(Investigador inv : this.investigadores) {
 			if(inv.getIdInvestigador().equals(investigador.getIdInvestigador())) {
 				System.out.println("El investigador con ID: " + investigador.getIdInvestigador() + " ya está en el proyecto " + this.idProyecto);
@@ -128,8 +151,7 @@ public class Proyecto {
 		Investigador inv = new Investigador(idInvestigador, nombre, especialidad, carrera);
 		return agregarInvestigador(inv);
 	}
-	
-	// buscar investigador por id
+
 	public Investigador buscarInvestigador(String idInvestigador) {
 		for(Investigador inv : this.investigadores) {
 			if(inv.getIdInvestigador().equals(idInvestigador)) return inv;
@@ -137,26 +159,36 @@ public class Proyecto {
 		return null;
 	}
 	
-	// buscar publicacion por id
-	public Publicacion buscarPublicacion(String idPublicacion) {
-		for(Publicacion p : this.publicaciones) {
-			if(p.getIdPublicacion().equals(idPublicacion)) return p;
-		}
-		return null;
-	}
-	
-	// remover publicacion
-	public boolean removerPublicacion(String idPublicacion) {
-		Publicacion p = buscarPublicacion(idPublicacion);
-		if(p == null) return false;
-		return this.publicaciones.remove(p);
-	}
-	
-	// remover investigador
 	public boolean removerInvestigador(String idInvestigador) {
 		Investigador inv = buscarInvestigador(idInvestigador);
 		if(inv == null) return false;
 		return this.investigadores.remove(inv);
 	}
+	
+	public boolean editarInvestigador(String idInvestigador, String nuevoNombre, String nuevaEspecialidad, String nuevaCarrera) {
+        Investigador inv = buscarInvestigador(idInvestigador);
+        if (inv == null) return false;
+        inv.setNombre(nuevoNombre);
+        inv.setEspecialidad(nuevaEspecialidad);
+        inv.setCarrera(nuevaCarrera);
+        return true;
+    }
+	
+	@Override
+    public String toString() {
+        return idProyecto + " - " + nombre + " [" + subRamaCarrera + "] Fondos: " + fondos;
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Proyecto)) return false;
+        Proyecto other = (Proyecto) o;
+        return idProyecto != null && idProyecto.equals(other.idProyecto);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idProyecto);
+    }
 }

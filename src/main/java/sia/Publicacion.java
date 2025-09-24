@@ -1,6 +1,6 @@
 package sia;
 
-import java.util.ArrayList;
+import java.util.*;
 
 // anidada
 public class Publicacion {
@@ -47,6 +47,12 @@ public class Publicacion {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
+	
+	// Getter seguro de autores
+	public List<Investigador> getAutores() {
+		return Collections.unmodifiableList(new ArrayList<>(autores));
+	}
+	
 	public boolean agregarAutor(Investigador autor) {
 		if(autor == null) return false;
 		if(this.autores.contains(autor)) {
@@ -56,7 +62,22 @@ public class Publicacion {
 		this.autores.add(autor);
 		return true;
 	}
-	public ArrayList<Investigador> getAutores() {
-		return autores;
-	}
+	
+	@Override
+    public String toString() {
+        return idPublicacion + " - " + titulo + " (" + año + ") tipo: " + tipo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Publicacion)) return false;
+        Publicacion other = (Publicacion) o;
+        return idPublicacion != null && idPublicacion.equals(other.idPublicacion);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idPublicacion);
+    }
 }

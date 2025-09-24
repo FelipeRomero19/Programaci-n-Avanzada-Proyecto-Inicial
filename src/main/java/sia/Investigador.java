@@ -1,5 +1,7 @@
 package sia;
 
+import java.util.*;
+
 public class Investigador {
 	private String idInvestigador;
 	private String nombre; // nombre del investigador
@@ -64,5 +66,21 @@ public class Investigador {
 		}
 	}
 	
+	@Override
+    public String toString() {
+        return idInvestigador + " | " + nombre + " | " + especialidad + " | " + carrera;
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Investigador)) return false;
+        Investigador other = (Investigador) o;
+        return idInvestigador != null && idInvestigador.equals(other.idInvestigador);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idInvestigador);
+    }
 }
