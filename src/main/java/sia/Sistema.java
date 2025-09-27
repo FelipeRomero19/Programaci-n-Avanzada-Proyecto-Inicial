@@ -37,7 +37,8 @@ public class Sistema {
 	}
 	
 	public void guardarSistema() throws IOException {
-		PersistenceCSV.guardarTodo(this);
+		//PersistenceCSV.guardarTodo(this);
+                return; //para pruebas
 	}
 	
 	private void inicializarSistema() {
@@ -194,6 +195,9 @@ public class Sistema {
         Proyecto p = this.proyectos.get(idProyecto);
         if (p == null) throw new ProyectoNotFoundException("No existe el proyecto con ID: " + idProyecto);
         return p.removerInvestigador(idInvestigador);
+    }
+    public List<Proyecto> listarProyectos(){
+        return new ArrayList<>(this.proyectos.values());
     }
 	
 }

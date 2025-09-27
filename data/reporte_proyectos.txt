@@ -1,0 +1,20 @@
+REPORTE DE PROYECTOS
+=====================
+ID: P-1001
+Nombre: Sistema Solar Inteligente
+SubRama: Energía Renovable
+Fondos: 500000,00
+Investigadores:
+ - I-2001 | Juan Pérez | Paneles Solares
+Publicaciones:
+ - PUB-0019 | Modelado de paneles (1991) Tipo: Artículo
+-----------------------------------
+ID: P-3002
+Nombre: Clasificación con Deep Learning
+SubRama: Inteligencia Artificial
+Fondos: 7500000,00
+Investigadores:
+ - I-6002 | María Gómez | Deep Learning
+Publicaciones:
+ - PUB-3002 | Redes convolucionales para diagnóstico (2021) Tipo: Tesis
+-----------------------------------
