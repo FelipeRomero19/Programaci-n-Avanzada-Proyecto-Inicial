@@ -37,8 +37,8 @@ public class Sistema {
 	}
 	
 	public void guardarSistema() throws IOException {
-		//PersistenceCSV.guardarTodo(this);
-                return; //para pruebas
+		PersistenceCSV.guardarTodo(this);
+                return; 
 	}
 	
 	private void inicializarSistema() {
@@ -199,5 +199,17 @@ public class Sistema {
     public List<Proyecto> listarProyectos(){
         return new ArrayList<>(this.proyectos.values());
     }
+    public String buscarNombreInvestigador(String idProyecto, String idInvestigador) {
+        // Busca el investigador por ID en el proyecto y retorna su nombre
+        // Devuelve null o "" si no lo encuentra
+        Proyecto p = proyectos.get(idProyecto);
+        if (p != null) {
+            Investigador inv = p.buscarInvestigador(idInvestigador);
+            if (inv != null) {
+                return inv.getNombre();
+            }
+        }
+        return null;
+}
 	
 }

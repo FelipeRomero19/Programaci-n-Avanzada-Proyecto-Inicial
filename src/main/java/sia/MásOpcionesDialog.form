@@ -24,21 +24,21 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="254" max="32767" attributes="0"/>
+              <EmptySpace pref="140" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                   <Component id="btnEliminarInvestigador" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnAgregarInvestigador" min="-2" max="-2" attributes="0"/>
                   <Component id="btnAgregarPublicacion" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnEliminarPublicacion" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="140" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="134" max="32767" attributes="0"/>
+              <EmptySpace pref="84" max="32767" attributes="0"/>
               <Component id="btnAgregarInvestigador" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnAgregarPublicacion" min="-2" max="-2" attributes="0"/>
@@ -46,7 +46,7 @@
               <Component id="btnEliminarInvestigador" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnEliminarPublicacion" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -56,11 +56,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Agregar Investigador"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarInvestigadorActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnAgregarPublicacion">
       <Properties>
         <Property name="text" type="java.lang.String" value="Agregar Publicaci&#xf3;n"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarPublicacionActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnEliminarPublicacion">
       <Properties>
@@ -74,6 +80,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Eliminar Investigador"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarInvestigadorActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

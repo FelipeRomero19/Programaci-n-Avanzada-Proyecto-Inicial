@@ -1,13 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package sia;
+import sia.AgregarInvestigadorDialog;
+import sia.AgregarPublicacionDialog;
+import sia.EliminarInvestigadorDialog;
+import sia.EliminarPublicacionDialog;
 
-/**
- *
- * @author felix
- */
 public class MásOpcionesDialog extends javax.swing.JDialog {
 
     private Sistema sistema;
@@ -38,8 +34,18 @@ public class MásOpcionesDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnAgregarInvestigador.setText("Agregar Investigador");
+        btnAgregarInvestigador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarInvestigadorActionPerformed(evt);
+            }
+        });
 
         btnAgregarPublicacion.setText("Agregar Publicación");
+        btnAgregarPublicacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarPublicacionActionPerformed(evt);
+            }
+        });
 
         btnEliminarPublicacion.setText("Eliminar Publicación");
         btnEliminarPublicacion.addActionListener(new java.awt.event.ActionListener() {
@@ -49,24 +55,29 @@ public class MásOpcionesDialog extends javax.swing.JDialog {
         });
 
         btnEliminarInvestigador.setText("Eliminar Investigador");
+        btnEliminarInvestigador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarInvestigadorActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(254, Short.MAX_VALUE)
+                .addContainerGap(140, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btnEliminarInvestigador, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAgregarInvestigador)
                     .addComponent(btnAgregarPublicacion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEliminarPublicacion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26))
+                .addGap(140, 140, 140))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(134, Short.MAX_VALUE)
+                .addContainerGap(84, Short.MAX_VALUE)
                 .addComponent(btnAgregarInvestigador)
                 .addGap(18, 18, 18)
                 .addComponent(btnAgregarPublicacion)
@@ -74,15 +85,45 @@ public class MásOpcionesDialog extends javax.swing.JDialog {
                 .addComponent(btnEliminarInvestigador)
                 .addGap(18, 18, 18)
                 .addComponent(btnEliminarPublicacion)
-                .addGap(24, 24, 24))
+                .addGap(74, 74, 74))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
 
+    
+
+   
+   
     private void btnEliminarPublicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPublicacionActionPerformed
-        // TODO add your handling code here:
+        EliminarPublicacionDialog dialog = new EliminarPublicacionDialog(
+        (java.awt.Frame) this.getParent(), true, sistema, idProyecto
+        );
+        dialog.setVisible(true);
     }//GEN-LAST:event_btnEliminarPublicacionActionPerformed
+
+    private void btnAgregarInvestigadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarInvestigadorActionPerformed
+        AgregarInvestigadorDialog dialog = new AgregarInvestigadorDialog(
+            (java.awt.Frame) this.getParent(), true, sistema, idProyecto
+        );
+        dialog.setVisible(true);
+    }//GEN-LAST:event_btnAgregarInvestigadorActionPerformed
+
+    private void btnAgregarPublicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPublicacionActionPerformed
+        AgregarPublicacionDialog dialog = new AgregarPublicacionDialog(
+        (java.awt.Frame) this.getParent(), true, sistema, idProyecto
+        );
+        dialog.setVisible(true);
+    }//GEN-LAST:event_btnAgregarPublicacionActionPerformed
+
+    private void btnEliminarInvestigadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarInvestigadorActionPerformed
+        // Obtén el nombre del usuario. Si tienes una variable para eso, úsala.  
+        EliminarInvestigadorDialog dialog = new EliminarInvestigadorDialog(
+        (java.awt.Frame) this.getParent(), true, sistema, idProyecto
+    );
+    dialog.setVisible(true);
+    }//GEN-LAST:event_btnEliminarInvestigadorActionPerformed
 
 
 

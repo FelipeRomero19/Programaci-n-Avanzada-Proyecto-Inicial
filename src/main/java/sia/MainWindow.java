@@ -1,10 +1,7 @@
 package sia;
 
 
-/**
- *
- * @author felix
- */
+import javax.swing.JOptionPane;
 public class MainWindow extends javax.swing.JFrame {
 
     private Sistema sistema;
@@ -30,7 +27,7 @@ public class MainWindow extends javax.swing.JFrame {
         btnListarProyecto = new javax.swing.JButton();
         btnVerDetalledeProyecto = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,13 +69,18 @@ public class MainWindow extends javax.swing.JFrame {
 
         btnVerDetalledeProyecto.setForeground(new java.awt.Color(24, 49, 106));
         btnVerDetalledeProyecto.setText("Ver Detalle de Proyecto");
+        btnVerDetalledeProyecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerDetalledeProyectoActionPerformed(evt);
+            }
+        });
 
         jLabel2.setBackground(new java.awt.Color(24, 49, 106));
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Administración de Proyectos de Investigación Universitaria");
 
-        jLabel1.setText("jLabel1");
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sia/pucv.logo.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,8 +88,8 @@ public class MainWindow extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addComponent(jLabel1)
+                .addGap(81, 81, 81)
+                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnVerDetalledeProyecto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -95,26 +97,28 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(btnEliminarProyecto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEditarProyecto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAgregarProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38))
+                .addGap(40, 40, 40))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                .addGap(55, 55, 55)
-                .addComponent(btnAgregarProyecto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEditarProyecto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnEliminarProyecto)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnListarProyecto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnVerDetalledeProyecto)
-                .addGap(62, 62, 62))
+                    .addComponent(jLabel3)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnAgregarProyecto)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEditarProyecto)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEliminarProyecto)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnListarProyecto)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnVerDetalledeProyecto)
+                        .addGap(27, 27, 27)))
+                .addGap(32, 32, 32))
         );
 
         pack();
@@ -139,6 +143,20 @@ public class MainWindow extends javax.swing.JFrame {
         ListarProyectosDialog dialog = new ListarProyectosDialog(this, true, sistema);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnListarProyectoActionPerformed
+
+    private void btnVerDetalledeProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDetalledeProyectoActionPerformed
+        String idProyecto = JOptionPane.showInputDialog(this, "Ingrese el ID del proyecto a consultar:");
+        if (idProyecto == null || idProyecto.trim().isEmpty()) {
+            return; // Usuario canceló o dejó vacío
+        }
+        Proyecto p = sistema.buscarProyecto(idProyecto.trim());
+        if (p == null) {
+            JOptionPane.showMessageDialog(this, "No existe un proyecto con ese ID.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        DetalleProyectoDialog dialog = new DetalleProyectoDialog(this, true, sistema, idProyecto.trim());
+        dialog.setVisible(true);
+    }//GEN-LAST:event_btnVerDetalledeProyectoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -182,7 +200,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminarProyecto;
     private javax.swing.JButton btnListarProyecto;
     private javax.swing.JButton btnVerDetalledeProyecto;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }
