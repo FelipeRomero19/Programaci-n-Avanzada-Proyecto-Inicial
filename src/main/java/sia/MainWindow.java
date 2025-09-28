@@ -1,8 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package sia;
+
 
 /**
  *
@@ -15,8 +12,9 @@ public class MainWindow extends javax.swing.JFrame {
     public MainWindow() {
         sistema = new Sistema();
         initComponents();
+        
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,9 +29,13 @@ public class MainWindow extends javax.swing.JFrame {
         btnEliminarProyecto = new javax.swing.JButton();
         btnListarProyecto = new javax.swing.JButton();
         btnVerDetalledeProyecto = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        btnAgregarProyecto.setBackground(new java.awt.Color(24, 49, 106));
+        btnAgregarProyecto.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregarProyecto.setText("Agregar Proyecto");
         btnAgregarProyecto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -41,6 +43,8 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        btnEditarProyecto.setBackground(new java.awt.Color(221, 170, 51));
+        btnEditarProyecto.setForeground(new java.awt.Color(24, 49, 106));
         btnEditarProyecto.setText("Editar Proyecto");
         btnEditarProyecto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -48,6 +52,8 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        btnEliminarProyecto.setBackground(new java.awt.Color(172, 46, 36));
+        btnEliminarProyecto.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminarProyecto.setText("Eliminar Proyecto");
         btnEliminarProyecto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -55,6 +61,8 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        btnListarProyecto.setBackground(new java.awt.Color(110, 168, 217));
+        btnListarProyecto.setForeground(new java.awt.Color(24, 49, 106));
         btnListarProyecto.setText("Listar Proyectos");
         btnListarProyecto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,36 +70,51 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        btnVerDetalledeProyecto.setForeground(new java.awt.Color(24, 49, 106));
         btnVerDetalledeProyecto.setText("Ver Detalle de Proyecto");
+
+        jLabel2.setBackground(new java.awt.Color(24, 49, 106));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Administración de Proyectos de Investigación Universitaria");
+
+        jLabel1.setText("jLabel1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(281, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(91, 91, 91)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnVerDetalledeProyecto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnListarProyecto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEliminarProyecto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEditarProyecto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAgregarProyecto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(17, 17, 17))
+                    .addComponent(btnAgregarProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(150, Short.MAX_VALUE)
+                .addGap(16, 16, 16)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                .addGap(55, 55, 55)
                 .addComponent(btnAgregarProyecto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEditarProyecto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEliminarProyecto)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnEliminarProyecto)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnListarProyecto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnVerDetalledeProyecto)
-                .addGap(16, 16, 16))
+                .addGap(62, 62, 62))
         );
 
         pack();
@@ -159,5 +182,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminarProyecto;
     private javax.swing.JButton btnListarProyecto;
     private javax.swing.JButton btnVerDetalledeProyecto;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }

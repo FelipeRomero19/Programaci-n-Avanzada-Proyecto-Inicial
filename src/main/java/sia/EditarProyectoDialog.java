@@ -18,6 +18,7 @@ public class EditarProyectoDialog extends javax.swing.JDialog {
         this.sistema = sistema;
         initComponents();
         setFieldsEnabled(false);
+        btnMasOpciones.setEnabled(false);
     }
     private void setFieldsEnabled(boolean enabled) {
     txtNombre.setEnabled(enabled);
@@ -50,6 +51,7 @@ public class EditarProyectoDialog extends javax.swing.JDialog {
         txtSubrama = new javax.swing.JTextField();
         btnCancelar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
+        btnMasOpciones = new javax.swing.JButton();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -118,6 +120,13 @@ public class EditarProyectoDialog extends javax.swing.JDialog {
             }
         });
 
+        btnMasOpciones.setText("Más Opciones");
+        btnMasOpciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMasOpcionesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -147,7 +156,8 @@ public class EditarProyectoDialog extends javax.swing.JDialog {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
                                     .addComponent(txtSubrama, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnMasOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(22, 22, 22))))
         );
         layout.setVerticalGroup(
@@ -162,7 +172,9 @@ public class EditarProyectoDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMasOpciones))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -175,13 +187,13 @@ public class EditarProyectoDialog extends javax.swing.JDialog {
                         .addComponent(txtSubrama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(5, 5, 5)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(13, 13, 13)
                 .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGuardarCambios, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pack();
@@ -260,6 +272,7 @@ public class EditarProyectoDialog extends javax.swing.JDialog {
             setFieldsEnabled(false); // Deshabilita todo excepto el campo ID y Buscar
             txtId.setEnabled(true); // Por si acaso
             btnBuscar.setEnabled(true);
+            btnMasOpciones.setEnabled(false);
             return;
         }
         proyectoActual = p;
@@ -268,16 +281,29 @@ public class EditarProyectoDialog extends javax.swing.JDialog {
         txtFondos.setText(Double.toString(p.getFondos()));
         txtSubrama.setText(p.getSubRamaCarrera());
         setFieldsEnabled(true);
+        btnMasOpciones.setEnabled(true);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void txtDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescripcionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDescripcionActionPerformed
 
+    private void btnMasOpcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMasOpcionesActionPerformed
+        if (proyectoActual == null) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Debe buscar y seleccionar un proyecto válido antes de usar las opciones avanzadas.");
+            return;
+        }
+        // Aquí abres tu diálogo de opciones avanzadas, por ejemplo:
+        MásOpcionesDialog dialog = new MásOpcionesDialog((java.awt.Frame)this.getParent(), true, sistema, proyectoActual.getIdProyecto());
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_btnMasOpcionesActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardarCambios;
+    private javax.swing.JButton btnMasOpciones;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

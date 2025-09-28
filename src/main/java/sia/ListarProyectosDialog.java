@@ -9,12 +9,43 @@ import java.util.List;
 public class ListarProyectosDialog extends javax.swing.JDialog {
 
     private final Sistema sistema;
+    private String textoBusqueda = "";
     
     public ListarProyectosDialog(java.awt.Frame parent, boolean modal, Sistema sistema) {
-        super(parent, modal);
-        this.sistema = sistema;
-        initComponents();
-        cargarProyectos();
+    super(parent, modal);
+    this.sistema = sistema;
+    initComponents();
+    jTable2.setDefaultRenderer(Object.class, new CustomRenderer());
+    cargarProyectos();
+    
+    jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            if (evt.getClickCount() == 2) {
+                int row = jTable2.getSelectedRow();
+                int col = jTable2.getSelectedColumn();
+                if (row != -1 && col != -1) {
+                    String mensaje = null;
+                    String titulo = null;
+                    if (col == 1) { 
+                        mensaje = (String) jTable2.getValueAt(row, 1);
+                        titulo = "Nombre completo";
+                    } else if (col == 2) { // Descripción
+                        mensaje = (String) jTable2.getValueAt(row, 2);
+                        titulo = "Descripción completa";
+                    } else {
+                        // Si no es ni Nombre ni Descripción, no muestra nada
+                        return;
+                    }
+                    JOptionPane.showMessageDialog(
+                        ListarProyectosDialog.this,
+                        mensaje,
+                        titulo,
+                        JOptionPane.INFORMATION_MESSAGE
+                        );
+                    }
+                }
+            }
+        });
     }
     private void cargarProyectos() {
         List<Proyecto> proyectos = sistema.listarProyectos(); // Usa el método nuevo
@@ -31,6 +62,7 @@ public class ListarProyectosDialog extends javax.swing.JDialog {
             });
         }
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -44,6 +76,9 @@ public class ListarProyectosDialog extends javax.swing.JDialog {
         btnCerrar = new javax.swing.JButton();
         tblProyectos = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        txtBuscar = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -64,8 +99,25 @@ public class ListarProyectosDialog extends javax.swing.JDialog {
             new String [] {
                 "ID", "Nombre", "Descripción", "Fondos", "SubRama"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblProyectos.setViewportView(jTable2);
+
+        jLabel1.setText("Buscar por ID:");
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -77,7 +129,13 @@ public class ListarProyectosDialog extends javax.swing.JDialog {
                         .addGap(50, 50, 50)
                         .addComponent(tblProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(361, 361, 361)
+                        .addGap(135, 135, 135)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBuscar)
+                        .addGap(132, 132, 132)
                         .addComponent(btnCerrar)))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
@@ -87,7 +145,11 @@ public class ListarProyectosDialog extends javax.swing.JDialog {
                 .addGap(19, 19, 19)
                 .addComponent(tblProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -98,11 +160,37 @@ public class ListarProyectosDialog extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        textoBusqueda = txtBuscar.getText().trim();
+
+        // Si el campo está vacío, limpia la selección y el resaltado
+        if (textoBusqueda.isEmpty()) {
+            jTable2.clearSelection(); // Quita cualquier selección previa
+        }
+        jTable2.repaint();
+    }//GEN-LAST:event_btnBuscarActionPerformed
+    
+    private class CustomRenderer extends javax.swing.table.DefaultTableCellRenderer {
+        @Override
+        public java.awt.Component getTableCellRendererComponent(javax.swing.JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            java.awt.Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            String idCelda = table.getValueAt(row, 0).toString().toLowerCase(); // Columna 0: ID
+            if (!textoBusqueda.isEmpty() && idCelda.contains(textoBusqueda.toLowerCase())) {
+                c.setBackground(java.awt.Color.GREEN);
+            } else {
+                c.setBackground(isSelected ? table.getSelectionBackground() : table.getBackground());
+            }
+            return c;
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCerrar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JTable jTable2;
     private javax.swing.JScrollPane tblProyectos;
+    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }
